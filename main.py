@@ -9,7 +9,8 @@ from telegram.ext import (
     filters,
 )
 from env import TELEGRAM_BOT_TOKEN
-from chatbot_crew import ChatBotCrew, add_to_conversation
+from chatbot_crew import ChatBotCrew
+from db import add_to_conversation
 
 
 async def handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

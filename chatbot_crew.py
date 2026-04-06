@@ -3,32 +3,10 @@ from crewai import Crew, Agent, Task
 from crewai.project import CrewBase, task, crew
 from env import OPENAI_API_KEY, GEMINI_API_KEY
 from tools import naver_search_tool
+from db import get_conversation_context
 
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY
-
-history = []  # 대화 히스토리를 기록
-
-
-def add_to_conversation(user_message, bot_response):
-    history.append(
-        {"user": user_message, "bot": bot_response, "timestamp": str(len(history) + 1)}
-    )
-
-    if len(history) > 10:
-        history.pop(0)
-
-
-def get_conversation_context():
-    if not history:
-        return "이전 대화 없음"
-
-    context = "=== 최근 대화 기록 ===\n"
-    for i, chat in enumerate(history, 1):
-        context += f"{i}. 사용자: {chat["user"]}\n"
-        context += f"     봇: {chat["bot"]}\n\n"
-
-    return context
 
 
 @CrewBase
